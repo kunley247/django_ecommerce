@@ -688,7 +688,7 @@
         "kind": 5,
         "importPath": "store.urls",
         "description": "store.urls",
-        "peekOfCode": "urlpatterns = [\n    path('', views.home, name=\"home\"),\n    path('login/', AuthenticationController.loginFunction, name=\"login\"),\n    path('register/', AuthenticationController.register, name=\"register\"),\n    path('logout/', AuthenticationController.logoutFunction, name=\"logout\"),\n    path('password/', views.password, name=\"password\"),\n    path('collections', views.collections, name=\"collections\"),\n    path('collections/<str:slug>', views.collectionsView, name=\"collectionsView\"),\n    path('products/<str:slug>', views.productsView, name=\"productsView\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('', views.home, name=\"home\"),\n    path('login/', AuthenticationController.loginFunction, name=\"login\"),\n    path('register/', AuthenticationController.register, name=\"register\"),\n    path('logout/', AuthenticationController.logoutFunction, name=\"logout\"),\n    path('password/', views.password, name=\"password\"),\n    path('category/<str:slug>', views.categoryView, name=\"categoryView\"),\n    path('products/<str:slug>', views.productsView, name=\"productsView\"),\n    path('services/<str:slug>', views.servicesView, name=\"servicesView\"),\n    path('dashboard/', views.dashboardView, name=\"dashboardView\"),",
         "detail": "store.urls",
         "documentation": {}
     },
@@ -697,7 +697,7 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def home(request):\n    return render(request, \"bootstrap/index.html\")\ndef register(request):\n    return render(request, \"bootstrap/register.html\")\ndef login(request):\n    return render(request, \"bootstrap/login.html\")\ndef password(request):\n    return render(request, \"bootstrap/password.html\")\ndef collections(request):\n    category = Category.objects.filter(status=0)",
+        "peekOfCode": "def home(request):\n    return render(request, \"bootstrap/index.html\")\ndef register(request):\n    return render(request, \"bootstrap/register.html\")\ndef login(request):\n    return render(request, \"bootstrap/login.html\")\ndef password(request):\n    return render(request, \"bootstrap/password.html\")\ndef dashboardView(request):\n    category = Category.objects.filter(status=0)",
         "detail": "store.views",
         "documentation": {}
     },
@@ -706,7 +706,7 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def register(request):\n    return render(request, \"bootstrap/register.html\")\ndef login(request):\n    return render(request, \"bootstrap/login.html\")\ndef password(request):\n    return render(request, \"bootstrap/password.html\")\ndef collections(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/collections.html\", context)",
+        "peekOfCode": "def register(request):\n    return render(request, \"bootstrap/register.html\")\ndef login(request):\n    return render(request, \"bootstrap/login.html\")\ndef password(request):\n    return render(request, \"bootstrap/password.html\")\ndef dashboardView(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/dashboard.html\", context)",
         "detail": "store.views",
         "documentation": {}
     },
@@ -715,7 +715,7 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def login(request):\n    return render(request, \"bootstrap/login.html\")\ndef password(request):\n    return render(request, \"bootstrap/password.html\")\ndef collections(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/collections.html\", context)\ndef collectionsView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):",
+        "peekOfCode": "def login(request):\n    return render(request, \"bootstrap/login.html\")\ndef password(request):\n    return render(request, \"bootstrap/password.html\")\ndef dashboardView(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/dashboard.html\", context)\ndef categoryView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):",
         "detail": "store.views",
         "documentation": {}
     },
@@ -724,25 +724,25 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def password(request):\n    return render(request, \"bootstrap/password.html\")\ndef collections(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/collections.html\", context)\ndef collectionsView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):\n        products = Product.objects.filter(category__slug=slug)\n        context = {'products':products}",
+        "peekOfCode": "def password(request):\n    return render(request, \"bootstrap/password.html\")\ndef dashboardView(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/dashboard.html\", context)\ndef categoryView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):\n        products = Product.objects.filter(category__slug=slug)\n        context = {'products':products, 'category_slug': slug}",
         "detail": "store.views",
         "documentation": {}
     },
     {
-        "label": "collections",
+        "label": "dashboardView",
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def collections(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/collections.html\", context)\ndef collectionsView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):\n        products = Product.objects.filter(category__slug=slug)\n        context = {'products':products}\n        return render(request, \"bootstrap/products.html\", context)\n    else:",
+        "peekOfCode": "def dashboardView(request):\n    category = Category.objects.filter(status=0)\n    context = {'category':category}\n    return render(request, \"bootstrap/dashboard.html\", context)\ndef categoryView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):\n        products = Product.objects.filter(category__slug=slug)\n        context = {'products':products, 'category_slug': slug}\n        return render(request, \"bootstrap/products.html\", context)\n    else:",
         "detail": "store.views",
         "documentation": {}
     },
     {
-        "label": "collectionsView",
+        "label": "categoryView",
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def collectionsView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):\n        products = Product.objects.filter(category__slug=slug)\n        context = {'products':products}\n        return render(request, \"bootstrap/products.html\", context)\n    else:\n        messages.warning(request, \"No such category found.\")\n        return redirect(\"collections\")\ndef productsView(request, slug):\n    if ( Product.objects.filter(slug=slug, status=0) ):",
+        "peekOfCode": "def categoryView(request, slug):\n    if ( Category.objects.filter(slug=slug, status=0) ):\n        products = Product.objects.filter(category__slug=slug)\n        context = {'products':products, 'category_slug': slug}\n        return render(request, \"bootstrap/products.html\", context)\n    else:\n        messages.warning(request, \"No such category found.\")\n        return redirect(\"dashboard\")\ndef productsView(request, slug, category_slug=\"\"):\n    if ( Product.objects.filter(slug=slug, status=0) ):",
         "detail": "store.views",
         "documentation": {}
     },
@@ -751,7 +751,7 @@
         "kind": 2,
         "importPath": "store.views",
         "description": "store.views",
-        "peekOfCode": "def productsView(request, slug):\n    if ( Product.objects.filter(slug=slug, status=0) ):\n        services = Services.objects.filter(product__slug=slug)\n        context = {'services':services}\n        return render(request, \"bootstrap/services.html\", context)\n    else:\n        messages.warning(request, \"No such product found.\")\n        return render(request, \"bootstrap/services.html\")",
+        "peekOfCode": "def productsView(request, slug, category_slug=\"\"):\n    if ( Product.objects.filter(slug=slug, status=0) ):\n        category_slug = request.GET.get('category_slug')\n        products = Product.objects.filter(category__slug=category_slug)\n        services = Services.objects.filter(product__slug=slug)\n        context = {\n            'services': services,\n            'products': products,\n            'category_slug': category_slug,\n            'product_slug': slug",
         "detail": "store.views",
         "documentation": {}
     },

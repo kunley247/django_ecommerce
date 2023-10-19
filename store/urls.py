@@ -11,7 +11,8 @@ urlpatterns = [
     path('password/', views.password, name="password"),
 
 
-    path('collections', views.collections, name="collections"),
-    path('collections/<str:slug>', views.collectionsView, name="collectionsView"),
+    path('category/<str:slug>', views.categoryView, name="categoryView"),
     path('products/<str:slug>', views.productsView, name="productsView"),
+    path('services/<str:slug>', views.servicesView, name="servicesView"),
+    path('dashboard/', views.dashboardView, name="dashboardView"),
 ]

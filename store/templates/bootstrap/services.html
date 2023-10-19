@@ -1,26 +1,21 @@
-{% extends 'bootstrap/layouts/main.html' %}
+{% include 'bootstrap/layouts/static-layout.html' %}
 
-{% block content %}
+{% block content %}    
+    <main>
+        <div class="container-fluid">
+            <div class="row" style="height: 100vh;">
+                <div class="col-md-3 col-xs-12 bg-secondary bg-gradient">
+                    <h1>Content 1</h1>
+                </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Collections</h2>
-                <div>
-                    {% for item in services  %}
-                        <div class="col-md-4">
-                            <div class="card">
-                                <a href="#">
-                                    <div class="card-body">
-                                        <h4>{{ item.name }}</h4>
-                                    </div>
-                                </a>
-                            </div>
+                <div class="col-md-9 col-xs-12 bg-light">
+                    <div class="row mt-4">
+                        <div class="container">
+                            <h1>Content 2</h1> 
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
-
+    </main>
 {% endblock content %}

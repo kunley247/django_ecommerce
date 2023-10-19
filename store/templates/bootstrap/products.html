@@ -1,29 +1,42 @@
-{% extends 'bootstrap/layouts/main.html' %}
+{% include 'bootstrap/layouts/static-layout.html' %}
 
-{% block content %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Collections</h2>
-                <div>
+{% block content %}    
+    <main>
+        <div class="container-fluid">
+            <div class="row" style="height: 100vh;">
+                <div class="col-md-3 col-xs-12 bg-secondary bg-gradient">
                     {% for item in products  %}
-                        <div class="col-md-4">
-                            <div class="card">
-                                <a href="{% url 'productsView' item.slug %}">
-                                    <div class="card-body">
-                                        <div class="products-image">
-                                            <img alt="products image" src="{{ item.image.url }}" class="w-100"/>
-                                        </div>
-                                        <h4>{{ item.name }}</h4>
-                                    </div>
-                                </a>
-                            </div>
+                    <a href="{% url 'productsView' item.slug %}?category_slug={{ category_slug }}" class="rounded text-white text-decoration-none {% if item.slug == product_slug %} bg-dark bg-gradient {% endif %} py-4 px-2 d-flex justify-content-between align-items-start">
+                        <img alt="Category image" src="{{ item.image.url }}" width="40px" height="40px" />
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold"> {{item.name}}</div>
+                            <div class="fw-normal">{{item.description}}</div>
                         </div>
+                        <i class="fas fa-angle-right"></i>
+                    </a>
                     {% endfor %}
+                </div>
+
+                <div class="col-md-9 col-xs-12 bg-light">
+                    <div class="row mt-4">
+                        <div class="container">
+                            {% for item in services  %}
+                            <div class="col-md-3 col-lg-4">
+                                <div class="card mb-4 shadow"> 
+                                    <a href="{% url 'servicesView' %}" class="card-body text-decoration-none py-4 px-4 d-flex justify-content-between align-items-center">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-normal"> {{item.name}}</div>
+                                            <div class="fw-light">{{item.description}}</div>
+                                        </div>
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
-
+    </main>
 {% endblock content %}

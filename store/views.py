@@ -16,27 +16,36 @@ def login(request):
 def password(request):
     return render(request, "bootstrap/password.html")
 
-
-def collections(request):
+def dashboardView(request):
     category = Category.objects.filter(status=0)
     context = {'category':category}
-    return render(request, "bootstrap/collections.html", context)
+    return render(request, "bootstrap/dashboard.html", context)
 
-def collectionsView(request, slug):
+def categoryView(request, slug):
     if ( Category.objects.filter(slug=slug, status=0) ):
         products = Product.objects.filter(category__slug=slug)
-        context = {'products':products}
+        context = {'products':products, 'category_slug': slug}
         return render(request, "bootstrap/products.html", context)
     else:
         messages.warning(request, "No such category found.")
-        return redirect("collections")
+        return redirect("dashboard")
     
 
-def productsView(request, slug):
+def productsView(request, slug, category_slug=""):
     if ( Product.objects.filter(slug=slug, status=0) ):
+        
+        category_slug = request.GET.get('category_slug')
+        products = Product.objects.filter(category__slug=category_slug)
         services = Services.objects.filter(product__slug=slug)
-        context = {'services':services}
-        return render(request, "bootstrap/services.html", context)
+        
+        context = {
+            'services': services,
+            'products': products,
+            'category_slug': category_slug,
+            'product_slug': slug
+        }
+
+        return render(request, "bootstrap/products.html", context)
     else:
         messages.warning(request, "No such product found.")
-        return render(request, "bootstrap/services.html")
+        return render(request, "category")
